@@ -1,3 +1,4 @@
+/* --- RESET GERAL / ESTILOS BÁSICOS --- */
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -8,6 +9,15 @@ body {
   background-color: rgb(22, 20, 24);
   color: #eee;
   user-select: none;
+
+  /* NOVO: flex‑box para centralizar tudo */
+  display: flex;
+  flex-direction: column;            /* empilha bg e nft em coluna */
+  justify-content: center;           /* alinha verticalmente no centro */
+  align-items: center;               /* alinha horizontalmente no centro */
+  min-height: 100vh;                 /* altura total da viewport */
+  position: relative;                /* necessário p/ .bg absolute */
+  overflow: hidden;                  /* evita scroll desnecessário */
 }
 
 code {
@@ -15,10 +25,11 @@ code {
     monospace;
 }
 
+/* --- CARD NFT --- */
 .nft{
   user-select:none;
   max-width: 300px;
-  margin: 5rem auto;
+  width: 90%;
   border: 1px solid #ffffff22;
   background-color: #282c34;
   background: linear-gradient(0deg, rgba(40,44,52,1) 0%, rgba(17,0,32,.5) 100%);
@@ -28,6 +39,7 @@ code {
   -webkit-backdrop-filter: blur(7px);
   overflow: hidden;
   transition: .5s all;
+  z-index: 2;               /* fica acima do título gigante */
 }
 .nft hr{
   width: 100%;
@@ -108,7 +120,7 @@ code {
   margin: 0;
 }
 .nft::before{
-  position: fixed;
+  position: absolute;
   content: "";
   box-shadow: 0 0 100px 40px #ffffff08;
   top: -10%;
@@ -129,13 +141,17 @@ code {
   left: 200%;
 }
 
+/* --- TÍTULO GIGANTE NO FUNDO --- */
 .bg{
-  position: fixed;
+  position: absolute;      /* sobreposto ao flex‑box */
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  z-index: 1;              /* abaixo do card */
+  pointer-events: none;    /* não captura clique/seleção */
 }
 .bg h1{
   font-size: 20rem;
   filter: opacity(0.5);
+  margin: 0;
 }
